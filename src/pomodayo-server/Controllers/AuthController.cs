@@ -53,7 +53,7 @@ namespace pomodayo.server.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
 
-            return Ok();
+            return Ok(new UserViewModel { UserName = user.UserName });
         }
 
         [HttpPost("sign-out")]
