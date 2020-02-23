@@ -28,6 +28,17 @@ namespace pomodayo.server
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllPolicy", builder =>
+                {
+                    builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin();
+
+                });
+            });
+
             services.AddTransient<IDataStoreService, AwsDataStoreService>();
         }
 
@@ -42,6 +53,8 @@ namespace pomodayo.server
             {
                 app.UseHsts();
             }
+
+            app.UseCors("AllPolicy");
 
             app.UseHttpsRedirection();
 
